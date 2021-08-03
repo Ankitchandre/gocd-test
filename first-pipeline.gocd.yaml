@@ -24,6 +24,7 @@ pipelines:
         jobs:
           build:
             timeout: 0
+            elastic_profile_id: demo-app
             environment_variables:
               test: test
             tasks:
