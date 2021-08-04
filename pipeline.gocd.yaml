@@ -1,20 +1,18 @@
 format_version: 10
 pipelines:
-  first-pipeline:
-    group: sample
+  gocd-local:
+    group: localtest
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
     materials:
-      gocdtest-cdp:
+      git-2659bb5:
         git: https://github.com/Ankitchandre/gocd-test.git
-        username: ankitchandre
         shallow_clone: false
         auto_update: true
         branch: master
-        encrypted_password: AES:4f17Uoz/m74ziE7qRrQMOg==:0BcEvkewx4Hc7Rj4jeOpBQ==
     stages:
-    - Build:
+    - stage-one:
         fetch_materials: true
         keep_artifacts: false
         clean_workspace: false
@@ -22,16 +20,13 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          build:
+          jobone:
             timeout: 0
-            environment_variables:
-              test: test
             tasks:
             - exec:
                 arguments:
-                - the date is
+                - hello
                 command: echo
                 run_if: passed
-            - exec:
-                command: date
-                run_if: passed
+    parameters:
+      test: test
