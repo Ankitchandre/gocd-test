@@ -25,7 +25,7 @@ pipelines:
             elastic_profile_id: demo-app
             artifacts:
             - external:
-                id: gradle-demo
+                id: dockerhub
                 store_id: dockerhub
                 configuration:
                   options:
