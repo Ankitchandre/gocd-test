@@ -1,13 +1,14 @@
-format_version: 10
+format_version: 3
 pipelines:
   gradle-demo-build:
-    group: cdp
+    group: IDFC
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 1
+    environment_variables:
     materials:
       git:
-        git: https://github.com/ujjwalvns/gradle-demo.git
+        git: https://github.com/Ankitchandre/gradle-demo.git
         shallow_clone: true
         auto_update: true
         branch: master
@@ -18,9 +19,8 @@ pipelines:
         clean_workspace: false
         approval:
           type: success
-          allow_only_on_success: false
         jobs:
-          build_project:
+          build_image:
             timeout: 0
             elastic_profile_id: demo-app
             artifacts:
@@ -29,19 +29,12 @@ pipelines:
                 store_id: dockerhub
                 configuration:
                   options:
-                    Image: ${DOCKERHUB_USERNAME}/gradle-service
+                    Image: ${DOCKERHUB_USERNAME}/gradle-demo
                     Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
                 arguments:
                 - -c
-                - gradle build
-                command: /bin/sh
-                run_if: passed
-            tasks:
-            - exec:
-                arguments:
-                - -c
-                - docker build -t $DOCKERHUB_USERNAME/gradle-service:$GO_PIPELINE_LABEL . -f Dockerfile
+                - docker build -t $DOCKERHUB_USERNAME/gradle-demo:$GO_PIPELINE_LABEL . -f Dockerfile
                 command: /bin/bash
                 run_if: passed
