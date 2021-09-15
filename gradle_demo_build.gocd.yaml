@@ -35,6 +35,6 @@ pipelines:
             - exec:
                 arguments:
                 - -c
-                - docker build -t $DOCKERHUB_USERNAME/gradle-demo:$GO_PIPELINE_LABEL . -f Dockerfile
+                - docker build -t $DOCKERHUB_USERNAME/gradle-demo:$GO_FROM_REVISION_GIT . -f Dockerfile
                 command: /bin/bash
                 run_if: passed
